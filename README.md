@@ -6,8 +6,7 @@ This is a Tic-Tac-Toe game implemented using ASP.NET Core MVC with a three-layer
 
 The project follows a clean architecture approach with the following layers:
 
-### 1. **DataAccessLayer**
-
+### 1. **Data Access Layer (DataAccessLayer)**
 Responsible for handling database interactions and managing entity data.
 
 - **Abstraction**: Contains interfaces for repositories.
@@ -16,8 +15,7 @@ Responsible for handling database interactions and managing entity data.
 - **Migrations**: Manages database migrations.
 - **Repositories**: Implements repository logic for game data persistence.
 
-### 2. **GameLogicLayer**
-
+### 2. **Business Logic Layer (GameLogicLayer)**
 Contains business logic related to game operations.
 
 - **Abstraction**: Interfaces for game management services.
@@ -25,8 +23,7 @@ Contains business logic related to game operations.
 - **Managers**: Implements `GameManager`, which contains core game logic.
 - **Services**: Additional game-related services.
 
-### 3. **XOGame (Presentation Layer)**
-
+### 3. **Presentation Layer (XOGame)**
 Handles user interactions and game UI.
 
 - **Controllers**: Handles game-related HTTP requests.
@@ -39,41 +36,34 @@ Handles user interactions and game UI.
 
 The `GameManager` class is responsible for handling all game logic. It provides the following functionalities:
 
-### 1. **Game Creation (********`CreateGame`********\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*)**
-
+### 1. **Game Creation (`CreateGame`)**
 - Initializes a new game with an empty board.
 - Sets the starting player to 'X'.
 - Saves the game to the repository.
 
-### 2. **Fetching Game Data (********`GetGame`********\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*)**
-
+### 2. **Fetching Game Data (`GetGame`)**
 - Retrieves game details by ID.
 - Converts `Game` entity to `GameDTO`.
 
-### 3. **Handling Player Moves (********`Move`********\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*)**
-
+### 3. **Handling Player Moves (`Move`)**
 - Validates the move.
 - Updates the board with the player's symbol.
 - Checks for a win or draw condition.
 - Switches turn to the other player.
 
-### 4. **AI Move (********`AIMove`********\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*)**
-
+### 4. **AI Move (`AIMove`)**
 - Uses the Minimax algorithm to determine the best move.
-- Ensures the AI plays optimally to minimize losses.**\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\***
+- Ensures the AI plays optimally to minimize losses.
 
-### 5\*\*\*\*\*\*`GetAllGames`\*\*\*\*****\*\*\*\*)**********\***************\*\*\*\*ry (**********\*\*\*\*\***\*\*\*\***\*\*\*\*\*\*\*\*\*\*\*\*\*\`\`**)\*\*
+### 5. **Retrieve All Games (`GetAllGames`)**
+- Retrieves all played games for a given session.
 
-- Retrieve\*\*\*\*\*\*\*\*s all played games for a given session.
-
-### 6. **Win and Draw Conditions (**`**, **`**)**
-
+### 6. **Win and Draw Conditions**
 - Determines if a player has won.
 - Checks if the board is full (draw).
 
-### 7. **AI Logic (**`**, **`**)**
-
-- Implements Minimax algorithm for AI moves.
+### 7. **AI Logic**
+- Implements the Minimax algorithm for AI moves.
 - Evaluates the board to find the best move for the AI.
 - Adjusts scores based on depth to prioritize faster wins.
 
@@ -81,7 +71,7 @@ The `GameManager` class is responsible for handling all game logic. It provides 
 
 1. Clone the repository.
 2. Configure the database in `appsettings.json`.
-3. Run migrations using Entity Fra using SignalRmework Core.
+3. Run migrations using Entity Framework Core.
 4. Start the application using `dotnet run`.
 5. Open the browser and play Tic-Tac-Toe!
 
