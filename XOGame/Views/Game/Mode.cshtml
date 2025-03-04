@@ -1,0 +1,19 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Select Game Mode";
+}
+
+<link href="/css/mode.css" rel="stylesheet" />
+
+<div class="mode-container">
+    <h2>Select Game Mode</h2>
+    <p>Choose a game mode to start playing.</p>
+
+    <form method="get" action="@Url.Action("Index", "Game")">
+        <input type="hidden" name="userSession" value="@Model" />
+
+        <button type="submit" name="type" value="0" class="btn btn-primary">Single Player</button>
+        <button type="submit" name="type" value="1" class="btn btn-success">Multiplayer</button>
+    </form>
+</div>

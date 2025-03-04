@@ -1,0 +1,40 @@
+﻿@using DataAccessLayer.Entities.Enums
+@using GameLogicLayer.DTOs
+@model IEnumerable<GameDTO>
+
+@{
+    ViewData["Title"] = "Game History";
+}
+
+<h2 class="mt-4">Game History</h2>
+<table class="table table-bordered mt-3">
+    <thead class="thead-dark">
+        <tr>
+            <th>Created At</th>
+            <th>Game Type</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var game in Model)
+        {
+            <tr>
+                <td>@game.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                <td>@game.TypeOfGame</td>
+                <td>@game.Status</td>
+                <td>
+                    @if (game.Status == GameStatus.InProgress)
+                    {
+                        <a href="@Url.Action("Play", "Game", new { id = game.Id })" class="btn btn-primary">Resume</a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Completed</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-secondary mt-3" href="@Url.Action("Index", "Home")">Back to Home</a>

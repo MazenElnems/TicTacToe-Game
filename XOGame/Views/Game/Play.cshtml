@@ -1,0 +1,91 @@
+﻿@using DataAccessLayer.Entities.Enums
+@using XOGame.VMs
+@model GameVM
+
+<link href="/css/game.css" rel="stylesheet" />
+
+<div class="container text-center">
+
+    <h1 class="mt-4">Tic-Tac-Toe</h1>
+
+    @switch (Model.Status)
+    {
+        case GameStatus.XWin:
+            <p id="status" class="lead mt-3">Player X Win</p>
+            break;
+        case GameStatus.OWin:
+            <p id="status" class="lead mt-3">Player O Win</p>
+            break;
+        case GameStatus.Draw:
+            <p id="status" class="lead mt-3">Draw</p>
+            break;
+        case GameStatus.InProgress:
+            <p id="status" class="lead mt-3">Player @Model.CurrentSymbol's Turn</p>
+            break;
+    }
+
+    <div class="board">
+        @for (int i = 0; i < 9; ++i)
+        {
+
+            if (Model.Status != GameStatus.InProgress)
+            {
+                <a class="cell btn btn-light" style="display:flex; align-items:center; justify-content:center;">
+                    @Model.Board[i]
+                </a>
+                continue;
+            }
+            if (char.IsWhiteSpace(Model.Board[i]))
+            {
+                <a href="/Game/Move/@Model.Id?index=@i" class="cell btn btn-light" style="display:flex; align-items:center; justify-content:center;"></a>
+            }
+            else
+            {
+                <a class="cell btn btn-light" style="display:flex; align-items:center; justify-content:center;">
+                    @Model.Board[i]
+                </a>
+            }
+        }
+
+        @if (Model.Status != GameStatus.InProgress)
+        {
+            
+            int type = (int)Model.TypeOfGame; 
+            
+            <a class="btn btn-primary mt-3 w-300" href="/Home/">Back</a>
+            <a class="btn btn-primary mt-3 w-300" href="/Game/Index?userSession=@Model.SessionId&type=@type">Restart</a>
+        }
+
+        <a class="btn btn-primary mt-3 w-300" href="/Game/History?userSession=@Model.SessionId">History</a>
+
+    </div>
+
+
+</div>
+
+<script>
+        function highlightWinningCells() {
+        const board = document.querySelectorAll('.cell'); 
+        const winPatterns = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]             
+        ];
+
+        winPatterns.forEach(pattern => {
+            const [a, b, c] = pattern;
+            if (
+                board[a].innerText !== '' &&
+                board[a].innerText === board[b].innerText &&
+                board[a].innerText === board[c].innerText
+            ) {
+                board[a].style.backgroundColor = 'green';
+                board[b].style.backgroundColor = 'green';
+                board[c].style.backgroundColor = 'green';
+            }
+        });
+    }
+
+    highlightWinningCells();
+
+</script>
